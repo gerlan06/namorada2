@@ -1,17 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="pink heart.css" />
-    <title>Pink heart</title>
-  </head>
-  <body>
-    <audio preload="auto" autoplay controls loop >
-      <source src="Link of my code in comment section.mp3">
-    </audio>
-    <!-- tiktok meowish -->
-    <canvas id="pinkboard"></canvas>
-    <script src="pink heart.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="pink heart.css" />
+  <title>Pink Heart</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #000;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    audio {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      z-index: 999;
+      width: 150px;
+    }
+
+    #tap-hint {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-family: sans-serif;
+      font-size: 1rem;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Aviso para ativar o som -->
+  <div id="tap-hint">Toque na tela para ativar o som</div>
+
+  <!-- Música -->
+  <audio id="bg-music" preload="auto" loop>
+    <source src="Link-of-my-code-in-comment-section.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Coração -->
+  <canvas id="pinkboard"></canvas>
+
+  <!-- Scripts -->
+  <script src="pink heart.js"></script>
+  <script>
+    const music = document.getElementById('bg-music');
+    const hint = document.getElementById('tap-hint');
+
+    const startAudio = () => {
+      music.play().then(() => {
+        console.log("Música reproduzida.");
+        hint.style.display = 'none';
+      }).catch(() => {
+        console.warn("Autoplay bloqueado. Precisa de interação.");
+      });
+
+      // Remove o evento após o primeiro clique
+      document.removeEventListener('click', startAudio);
+      document.removeEventListener('touchstart', startAudio);
+    };
+
+    document.addEventListener('click', startAudio);
+    document.addEventListener('touchstart', startAudio);
+  </script>
+</body>
 </html>
